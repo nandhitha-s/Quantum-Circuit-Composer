@@ -10,7 +10,6 @@ const DraggableGate = ({ type }: { type: string }) => {
     }),
   }));
 
-  // Define styles for different quantum gates
   const gateStyles: Record<string, string> = {
     H_GATE: "bg-blue-500 text-white",  // Hadamard
     X_GATE: "bg-purple-500 text-white", // Pauli-X

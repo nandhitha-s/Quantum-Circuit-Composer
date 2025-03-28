@@ -3,7 +3,7 @@ import { useState } from "react";
 import QubitLine from "./QubitLine";
 
 const CircuitCanvas = () => {
-  const [qubits, setQubits] = useState<number>(2); // Default 2 qubits
+  const [qubits, setQubits] = useState<number>(2); 
 
   const addQubit = () => setQubits((prev) => prev + 1);
   const removeQubit = () => setQubits((prev) => (prev > 1 ? prev - 1 : 1));
@@ -14,14 +14,12 @@ const CircuitCanvas = () => {
         Quantum Circuit
       </h2>
 
-      {/* Qubit Lines */}
       <div className="space-y-4 p-4 bg-transparent backdrop-blur-md rounded-lg shadow-lg border border-white/20">
         {Array.from({ length: qubits }, (_, i) => (
           <QubitLine key={i} index={i} />
         ))}
       </div>
 
-      {/* Controls */}
       <div className="flex justify-center space-x-6 mt-6">
         <button
           onClick={addQubit}

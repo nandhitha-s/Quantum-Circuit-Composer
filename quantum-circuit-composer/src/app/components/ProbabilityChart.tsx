@@ -3,18 +3,30 @@ import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { motion } from "framer-motion";
 
-const ProbabilityChart = ({ results }) => {
-  const [probabilities, setProbabilities] = useState([]);
+interface ProbabilityData {
+  id: number;
+  state: string;
+  probability: number;
+}
+
+interface ProbabilityChartProps {
+  results: Record<string, number>; 
+}
+
+const ProbabilityChart: React.FC<ProbabilityChartProps> = ({ results }) => {
+  const [probabilities, setProbabilities] = useState<ProbabilityData[]>([]);
 
   useEffect(() => {
     if (results && typeof results === "object") {
-      const processedData = Object.entries(results).map(([state, probability], index) => ({
-        id: index, // ✅ Unique key
-        state: state.toString(), // ✅ Ensure string
-        probability: Number(probability) || 0, // ✅ Ensure number
-      }));
-      console.log("Processed Chart Data:", processedData); // Debugging
-      setProbabilities(processedData);
+      const processedData: ProbabilityData[] = Object.entries(results).map(
+        ([state, probability], index) => ({
+          id: index,
+          state: state.toString(), 
+          probability: Number(probability) || 0, 
+        })
+      );
+      console.log("Processed Chart Data:", processedData);
+      setProbabilities(processedData); 
     }
   }, [results]);
 
@@ -33,7 +45,6 @@ const ProbabilityChart = ({ results }) => {
             <Tooltip cursor={{ fill: "#333" }} contentStyle={{ backgroundColor: "#222", border: "none", color: "#fff" }} />
             <Bar dataKey="probability" fill="url(#colorGradient)" radius={[8, 8, 0, 0]} />
             
-            {/* Gradient for bar colors */}
             <defs>
               <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#ffcc00" />

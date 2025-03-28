@@ -11,34 +11,32 @@ export async function POST(req: Request) {
     // Simulated quantum execution returning dynamic probabilities
     const executionResult = runQuantumCircuit(qasm);
 
-    return NextResponse.json(executionResult); // ✅ Return dynamic JSON
+    return NextResponse.json(executionResult); 
   } catch (error) {
     return NextResponse.json({ error: "Execution error" }, { status: 500 });
+    console.log(error)
   }
 }
 
-// 🎯 Function to dynamically simulate quantum execution
+
 function runQuantumCircuit(qasm: string) {
   console.log("Executing QASM:\n", qasm);
 
-  // Extract qubit count from QASM
-  const qubitMatch = qasm.match(/qreg q\[(\d+)\];/);
-  const qubitCount = qubitMatch ? parseInt(qubitMatch[1]) : 2; // Default to 2 qubits
 
-  // Generate all possible states (00, 01, ..., 11 for n qubits)
+  const qubitMatch = qasm.match(/qreg q\[(\d+)\];/);
+  const qubitCount = qubitMatch ? parseInt(qubitMatch[1]) : 2; 
+
   const possibleStates = Array.from({ length: 2 ** qubitCount }, (_, i) =>
     i.toString(2).padStart(qubitCount, "0")
   );
 
-  // Assign random probabilities (simulating quantum randomness)
-  let probabilities: Record<string, number> = {};
+  const probabilities: Record<string, number> = {};
   let sum = 0;
   for (const state of possibleStates) {
-    probabilities[state] = Math.random(); // Random value
+    probabilities[state] = Math.random(); 
     sum += probabilities[state];
   }
 
-  // Normalize probabilities to sum up to 1
   for (const state in probabilities) {
     probabilities[state] = parseFloat((probabilities[state] / sum).toFixed(3));
   }

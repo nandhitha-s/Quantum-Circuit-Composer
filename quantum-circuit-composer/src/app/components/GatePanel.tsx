@@ -8,7 +8,6 @@ const GatePanel = () => {
         Quantum Gates
       </h2>
 
-      {/* Gates Grid Layout */}
       <div className="grid grid-cols-2 gap-4 justify-items-center">
         <DraggableGate type="H_GATE" />
         <DraggableGate type="CNOT_GATE" />

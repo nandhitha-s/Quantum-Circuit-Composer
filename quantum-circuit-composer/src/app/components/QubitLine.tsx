@@ -1,7 +1,7 @@
 "use client";
 import { useDrop } from "react-dnd";
 import { useCircuitStore } from "../store/useCircuitStore";
-import DraggableGate from "./DraggableGate"; // ✅ Use consistent gate UI
+import DraggableGate from "./DraggableGate"; 
 
 const QubitLine = ({ index }: { index: number }) => {
   const addGate = useCircuitStore((state) => state.addGate);
@@ -30,12 +30,10 @@ const QubitLine = ({ index }: { index: number }) => {
         isOver ? "bg-gray-200 scale-105 transition-transform" : ""
       }`}
     >
-      {/* Qubit Label */}
       <span className="absolute left-2 text-lg font-semibold text-gray-700 text-white">
         q[{index}]
       </span>
 
-      {/* Dropped Gates */}
       <div className="flex space-x-3 pl-16">
         {qubits[index]?.gates.map((gate) => (
           <div
@@ -45,7 +43,6 @@ const QubitLine = ({ index }: { index: number }) => {
           >
             <DraggableGate type={gate.type} />
 
-            {/* Remove Button (Shows on Hover) */}
             <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-1 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
               ✕
             </div>
