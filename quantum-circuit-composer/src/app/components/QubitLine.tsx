@@ -2,11 +2,14 @@
 import { useDrop } from "react-dnd";
 import { useCircuitStore } from "../store/useCircuitStore";
 import DraggableGate from "./DraggableGate"; 
+import { useRef } from "react";
 
 const QubitLine = ({ index }: { index: number }) => {
   const addGate = useCircuitStore((state) => state.addGate);
   const removeGate = useCircuitStore((state) => state.removeGate);
   const qubits = useCircuitStore((state) => state.qubits);
+
+  const ref = useRef<HTMLDivElement | null>(null); // ✅ Create a ref for the div
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ["H_GATE", "CNOT_GATE", "X_GATE", "Y_GATE", "Z_GATE", "T_GATE"],
@@ -23,9 +26,11 @@ const QubitLine = ({ index }: { index: number }) => {
     }),
   }));
 
+  drop(ref); // ✅ Correctly attach the drop ref
+
   return (
     <div
-      ref={drop}
+      ref={ref} // ✅ Use the ref properly
       className={`relative flex items-center border-b border-white h-16 px-4 ${
         isOver ? "bg-gray-200 scale-105 transition-transform" : ""
       }`}

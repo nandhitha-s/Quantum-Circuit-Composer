@@ -13,7 +13,7 @@ const QuantumCircuitComposer = () => {
   const { qubits } = useCircuitStore();
   const [executionResult, setExecutionResult] = useState<string | null>(null);
   const [qasmCode, setQasmCode] = useState<string | null>(null);
-  const [stableResults, setStableResults] = useState(null);
+  const [stableResults, setStableResults] = useState<{ [key: string]: number }>({});
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -130,8 +130,8 @@ const QuantumCircuitComposer = () => {
         {!isMobile && (
           <motion.div className="w-full bg-[#222] p-4 sm:p-6 rounded-lg shadow-lg mt-6 space-y-6 border border-gray-700">
             <h2 className="text-lg font-bold mb-2 text-white">QSphere Representation</h2>
-            <QSphere probabilities={stableResults} />
-          </motion.div>
+            <QSphere probabilities={stableResults || {}} />
+            </motion.div>
         )}
 
         <div>
